@@ -1,6 +1,10 @@
 [project]
 name = "pygluelock"
 version = "0.1.0"
+dependencies = [
+  "aiohttp"
+]
+requires-python = ">= 3.10"
 description = "pygluelock is a sync wrapper around glue lock API"
 readme = "README.md"
 authors = [
@@ -10,21 +14,25 @@ maintainers = [
   {name = "Adnan Hossain", email = "fadnanhossain@hotmail.com"}
 ]
 classifiers = [
-
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Libraries :: Python Modules"
 ]
-license = {text = "MIT"}
-dependencies = [
-  "typer"
-]
-requires-python = ">= 3.10"
+license = "MIT"
+[tool.setuptools]
+packages = ["pygluelock"]
 
 [project.optional-dependencies]
 test = [
-    "coverage",  # testing
     "pytest",  # testing
     "ruff",  # linting
-    "ty", # checking types
-    "ipdb"    
+    "ipdb"
 ]
 
 [project.urls]
@@ -33,12 +41,7 @@ changelog = "https://github.com/aniiik/pygluelock/blob/master/changelog.md"
 homepage = "https://github.com/aniiik/pygluelock"
 
 [project.scripts]
-pygluelock = "pygluelock.cli:app"
-
-[tool.ty]
-# All rules are enabled as "error" by default; no need to specify unless overriding.
-# Example override: relax a rule for the entire project (uncomment if needed).
-# rules.TY015 = "warn"  # For invalid-argument-type, warn instead of error.
+pygluelock = "pygluelock.__main__:cli"
 
 [tool.ruff]
 line-length = 120
