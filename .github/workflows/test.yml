@@ -44,3 +44,18 @@ jobs:
     - name: Run tests
       run: |
         pytest
+    - name: Check version bump against main
+      run: |
+        # Checkout main branch to temp directory
+        git fetch origin main
+        git show origin/main:pyproject.toml > pyproject_main.toml
+        # Extract version from both files
+        VERSION_CURRENT=$(grep '^version' pyproject.toml | head -1 | cut -d'=' -f2 | tr -d ' "')
+        VERSION_MAIN=$(grep '^version' pyproject_main.toml | head -1 | cut -d'=' -f2 | tr -d ' "')
+        echo "Current version: $VERSION_CURRENT"
+        echo "Main version: $VERSION_MAIN"
+        if [ "$VERSION_CURRENT" = "$VERSION_MAIN" ]; then
+          echo "Version has not been bumped compared to main!"
+          exit 1
+        fi
+        echo "Version bump detected."

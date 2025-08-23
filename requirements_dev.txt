@@ -1,0 +1,7 @@
+# Development requirements for pygluelock
+pytest
+ruff
+ipdb
+sphinx
+coverage
+toml
