@@ -1,6 +1,4 @@
-import asyncio
 import base64
-from typing import Optional
 
 import aiohttp
 
@@ -19,8 +17,8 @@ class GlueLock:
         self,
         username: str,
         password: str,
-        api_key: Optional[str] = None,
-        lock_id: Optional[str] = None,
+        api_key: str | None = None,
+        lock_id: str | None = None,
         session: aiohttp.ClientSession | None = None,
     ):
         self.username = username
@@ -186,3 +184,7 @@ class GlueLock:
             raise AuthorizationFailedExcepion(
                 f"API key creation failed: {response.status} - {text}"
             )
+    async def close(self):
+        """Close the session."""
+        await self.session.close()
+        self._session = None
